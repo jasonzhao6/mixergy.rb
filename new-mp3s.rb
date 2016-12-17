@@ -9,7 +9,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-LAST_SCRAPED_URL = 'https://mixergy.com/interviews/email-players-with-ben-settle/'
+LAST_SCRAPED_URL = 'https://mixergy.com/interviews/nextvacay-with-naveen-dittakavi/'
 
 def latest_interview_urls
   url = 'https://mixergy.com/interviews/'
@@ -28,7 +28,7 @@ end
 
 def print_mp3_url(interview_url)
   page = Nokogiri::HTML(open(interview_url))
-  player = page.css('.smart-track-player').first
+  player = page.css('.smart-track-player-container').first
   puts player['data-url'] if player
 end
 
