@@ -8,8 +8,9 @@
 
 require 'nokogiri'
 require 'open-uri'
+require 'json'
 
-LAST_SCRAPED_URL = 'https://mixergy.com/interviews/nextvacay-with-naveen-dittakavi/'
+LAST_SCRAPED_URL = 'https://mixergy.com/interviews/freeeup-with-nathan-hirsch/'
 
 def latest_interview_urls
   url = 'https://mixergy.com/interviews/'
@@ -27,9 +28,11 @@ def latest_interview_urls
 end
 
 def print_mp3_url(interview_url)
-  page = Nokogiri::HTML(open(interview_url))
-  player = page.css('.smart-track-player-container').first
-  puts player['data-url'] if player
+  mp3_line = open(interview_url).select{ |source_code| source_code =~ /mp3/ }.first
+  json_start = mp3_line.index('{')
+  json_end = mp3_line.rindex('}')
+  json_object = JSON.parse(mp3_line[json_start..json_end])
+  puts json_object['options']['url']
 end
 
 urls = latest_interview_urls
