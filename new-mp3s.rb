@@ -10,7 +10,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 
-LAST_SCRAPED_URL = 'https://mixergy.com/interviews/kissmetrics-with-hiten-shah/'
+LAST_SCRAPED_URL = 'https://mixergy.com/interviews/dumbo-moving-and-storage-with-lior-rachmany/'
 
 def latest_interview_urls
   url = 'https://mixergy.com/interviews/'
@@ -28,7 +28,7 @@ def latest_interview_urls
 end
 
 def print_mp3_url(interview_url)
-  mp3_line = open(interview_url).select{ |source| source =~ /\.mp3/ }.first
+  mp3_line = open(interview_url).select{ |source| source =~ /\.mp3\"/ }.first
   return unless mp3_line
 
   json_start = mp3_line.index('{')
